@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rak Music kit</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            height: 100vh;
+            width:100%;
+            box-sizing: border-box;
+            background:rgba(170, 155, 173, 0.436);
+        }
+        .container{
+            height: 100%;
+            width:100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+
+        }
+        .head{
+            height:fit-content;
+            width:100%;
+            text-align: center;
+            margin: 0%;
+            padding: 0%;
+        }
+       .head h1{
+            font-size:4rem;
+        }
+        .instruments{
+            position: absolute;
+            top:14rem;
+            display: grid;
+            grid-template-columns:repeat(2,auto);
+            justify-content:space-evenly;
+            align-items: center;
+            height:50vh;
+            width:30rem;
+            background-color: rgba(0, 0, 0, 0.76);;
+            box-shadow: 0 0 10px rgb(255, 255, 255),
+            0 0 20px rgba(255, 255, 255, 0.801),
+            0 0 30px rgba(255, 255, 255, 0.694);
+            border-radius:.8rem;
+        }
+        button{
+            height:7rem;
+            width:7rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            text-transform: capitalize;
+            background:wheat;
+            border:0;
+            border-radius:.8rem;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.432),
+            0 0 20px rgba(255, 255, 255, 0.232);
+        }
+        button:hover{
+            height:6.9rem;
+            width:6.9rem;
+        }
+        button:active{
+            height:6.9rem;
+            width:6.9rem;
+        }
+
+        @media screen and (max-width:500px){
+            .instruments{
+                width:98%;
+                height:60vh;
+            }
+            .head h1{
+            font-size:2rem;
+        }
+        }
+        @media screen and (max-width:350px){
+            .instruments{
+                zoom:.9;
+            }
+            .head h1{
+            font-size:2rem;
+        }
+        }
+        @media screen and (max-width:250px){
+            .instruments{
+                zoom:.8;
+                height:45vh;
+            }
+            .head h1{
+            font-size:1rem;
+        }
+        button{
+            zoom:.8;
+        }
+        }
+        @media screen and (max-width:150px){
+            .container{
+                display:none;
+            }
+            body:after{
+                content:"Not Supported On Your Device";
+                position:absolute;
+                color:greenyellow;
+                background-color: black;
+                height:100vh;
+                width:100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Rak Music kit</h1>
+        </div>
+        <div class="instruments">
+        </div>
+    </div>
+
+
+    <script>
+        let instrument  = ["drum","floor tom","hi Hat","snare" ];
+        let instContainer = document.querySelector(".instruments");
+        
+        instrument.forEach((x)=>{
+            
+            let inst = document.createElement("button");
+            inst.classList = "instrument";  
+            instContainer.appendChild(inst);
+            inst.innerText = x
+            let audio = document.createElement("audio");
+            audio.src = x+".mp3"
+            instContainer.appendChild(audio);
+            console.log(inst)
+            
+            inst.addEventListener("click",()=>{
+                audio.play()
+            })
+        
+            window.addEventListener("keydown",(event)=>{
+                console.log(event.key)
+                if(event.key === x.slice(0,1)){
+                    audio.play();
+                    inst.style.transform = "scale(.9)"
+                    
+                    setTimeout(()=>{
+                        inst.style.transform = "scale(1)"
+                        x.style.backgroundColor = "red"
+
+                    },100)
+                }
+            })
+            
+        })
+
+    </script>
+</body>
+</html>
